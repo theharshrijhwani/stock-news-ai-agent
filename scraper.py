@@ -2,6 +2,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from bs4 import BeautifulSoup
 from datetime import datetime
+import pandas as pd
 import time
 
 class Scraper:
@@ -30,7 +31,7 @@ class Scraper:
                     article_date_time = date.text.strip().split("\n")[0]
 
                     if article_date_time.startswith(self.date):
-                        self.articles.append({"Title": title, "Date": article_date_time, "URL": link})
+                        self.articles.append({"Title": title, "Date": self.date, "URL": link})
                     else:
                         stop_scraping = True
                         break
@@ -56,3 +57,11 @@ class Scraper:
 
     def get_articles(self):
         return self.articles
+    
+    def generate_csv(self):
+        self.run_scraper()
+        articles = self.get_articles()
+        df = pd.DataFrame(articles)
+        file_path = "output/articles.csv"
+        df.to_csv(file_path, index=False)
+        print(f"csv successfully updated!")

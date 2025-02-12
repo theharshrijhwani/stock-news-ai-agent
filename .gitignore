@@ -1,3 +1,5 @@
 __pycache__/
 webdrivers/
 geckodriver.exe
+test.py
+output/

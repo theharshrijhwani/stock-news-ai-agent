@@ -3,3 +3,4 @@ webdrivers/
 geckodriver.exe
 test.py
 output/
+output.test/

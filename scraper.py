@@ -31,7 +31,7 @@ class Scraper:
                     article_date_time = date.text.strip().split("\n")[0]
 
                     if article_date_time.startswith(self.date):
-                        self.articles.append({"Title": title, "Date": self.date, "URL": link})
+                        self.articles.append(link)
                     else:
                         stop_scraping = True
                         break
@@ -56,12 +56,5 @@ class Scraper:
         self.close_driver()
 
     def get_articles(self):
-        return self.articles
-    
-    def generate_csv(self):
         self.run_scraper()
-        articles = self.get_articles()
-        df = pd.DataFrame(articles)
-        file_path = "output/articles.csv"
-        df.to_csv(file_path, index=False)
-        print(f"csv successfully updated!")
+        return self.articles
